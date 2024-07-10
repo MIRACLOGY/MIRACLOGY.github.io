@@ -1,0 +1,135 @@
+/* 애니메이션 추가 */
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 1000px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  background-color: #f3f3f3;
+  padding: 1.25rem;
+  border-radius: 0.875rem;
+  box-shadow: 0px 0.1875rem 0.375rem rgba(0, 0, 0, 0.161);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.expanded-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  animation: slideDown 1s ease-out; /* 애니메이션 지속 시간을 1초로 변경 */
+  max-height: 1000px; /* 초기 max-height 설정 */
+  overflow: hidden;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.625rem;
+}
+
+.image-container button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.image-container button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.expanded-image {
+  width: 100%;
+  max-width: 45rem; /* 720px */
+  height: auto;
+  max-height: 25rem; /* 400px */
+  border-radius: 0.625rem;
+  margin: 0 0.625rem;
+  object-fit: cover;
+  transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out; /* 이미지 비율 조정 애니메이션 */
+}
+
+.expanded-info {
+  text-align: left;
+  width: 100%;
+  font-size: 1.5rem; /* 24pt */
+}
+
+.expanded-info h2 {
+  font-size: 1.5rem; /* 24pt */
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+}
+
+.expanded-info p {
+  margin-bottom: 0.3125rem;
+}
+
+.expanded-info p span {
+  font-weight: bold;
+}
+
+.sidebar-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar-content h3 {
+  font-size: 1.125rem;
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+}
+
+.table-container {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+  padding: 0.5rem;
+  text-align: left;
+  font-size: 1rem; /* 16pt */
+}
+
+.info-table th {
+  background-color: #e6e6e6;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.info-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.info-table tr:hover {
+  background-color: #f1f1f1;
+}
