@@ -5,11 +5,11 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import './Map.css';
 
 // 아이콘 경로 설정
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import iconRetinaUrl from '../../assets/red-marker-icon-2x.png';
+import iconUrl from '../../assets/red-marker-icon.png';
 
-const DefaultIcon = L.icon({
+const RedIcon = L.icon({
   iconRetinaUrl,
   iconUrl,
   shadowUrl,
@@ -19,14 +19,14 @@ const DefaultIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-L.Marker.prototype.options.icon = DefaultIcon;
+L.Marker.prototype.options.icon = RedIcon;
 
 const Map = ({ selectedMarker, setSelectedMarker, setMarkers, handleRowClick }) => {
   const [markers, setLocalMarkers] = useState([]);
 
   useEffect(() => {
     // Fetch data from JSON file in the public directory
-    fetch('/data/data2.json')
+    fetch('/data/data3.json') // 변경된 JSON 파일
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
@@ -37,7 +37,7 @@ const Map = ({ selectedMarker, setSelectedMarker, setMarkers, handleRowClick }) 
         // 'X 좌표'와 'Y 좌표' 데이터를 포함한 markers 배열 설정
         const markersData = data.map((item, index) => ({
           position: [item['X 좌표'], item['Y 좌표']],
-          name: item['생산자'],
+          name: item['구분'],
           details: item,
           index: index
         }));
