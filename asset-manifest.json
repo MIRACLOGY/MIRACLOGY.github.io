@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.f1de573b.css",
-    "main.js": "/static/js/main.a6f11177.js",
+    "main.js": "/static/js/main.76e07066.js",
     "static/js/453.ad6eb26e.chunk.js": "/static/js/453.ad6eb26e.chunk.js",
+    "static/media/red-marker-icon.png": "/static/media/red-marker-icon.7c66505edf8f6c8e9164.png",
     "index.html": "/index.html",
     "main.f1de573b.css.map": "/static/css/main.f1de573b.css.map",
-    "main.a6f11177.js.map": "/static/js/main.a6f11177.js.map",
+    "main.76e07066.js.map": "/static/js/main.76e07066.js.map",
     "453.ad6eb26e.chunk.js.map": "/static/js/453.ad6eb26e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f1de573b.css",
-    "static/js/main.a6f11177.js"
+    "static/js/main.76e07066.js"
   ]
 }
