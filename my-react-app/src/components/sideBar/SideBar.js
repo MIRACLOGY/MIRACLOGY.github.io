@@ -3,19 +3,13 @@ import './SideBar.css';
 
 const SideBar = forwardRef(({ markers, setSelectedMarker }, ref) => {
   const [expandedItem, setExpandedItem] = useState(null);
-  const [expandedImages, setExpandedImages] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [expandedImage, setExpandedImage] = useState(null);
 
   useEffect(() => {
     if (expandedItem) {
-      const imageIndex = String(expandedItem.Index+1).padStart(2, '0');
-      const images = [];
-      for (let i = 1; i <= 3; i++) {
-        const imageUrl = `/images/${imageIndex}_0${i}.png`;
-        images.push(imageUrl);
-      }
-      setExpandedImages(images);
-      setCurrentImageIndex(0);
+      const imageIndex = String(expandedItem.Index + 1).padStart(2, '0');
+      const imageUrl = `/images/${imageIndex}.jpg`;
+      setExpandedImage(imageUrl);
     }
   }, [expandedItem]);
 
@@ -36,9 +30,9 @@ const SideBar = forwardRef(({ markers, setSelectedMarker }, ref) => {
       <div className="sidebar-header">
         {expandedItem && (
           <div className="expanded-content">
-            {expandedImages.length > 0 && (
+            {expandedImage && (
               <div className="image-container">
-                <img src={expandedImages[currentImageIndex]} alt="Product" className="expanded-image" />
+                <img src={expandedImage} alt="Product" className="expanded-image" />
               </div>
             )}
             <div className="expanded-info">
