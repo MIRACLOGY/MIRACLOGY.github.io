@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import './Map.css';
 
-// 아이콘 경로 설정
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import randomIconRetinaUrl from '../../assets/blue-marker-icon-2x.png'; // 새로운 아이콘 경로
-import randomIconUrl from '../../assets/blue-marker-icon.png'; // 새로운 아이콘 경로
+import randomIconRetinaUrl from '../../assets/marker-icon-2x-bluedot.png';
+import randomIconUrl from '../../assets/marker-icon-bluedot.png';
 import iconRetinaUrl from '../../assets/red-marker-icon-2x.png';
 import iconUrl from '../../assets/red-marker-icon.png';
 
@@ -24,11 +23,11 @@ const RedIcon = L.icon({
 const BlueIcon = L.icon({
   iconRetinaUrl: randomIconRetinaUrl,
   iconUrl: randomIconUrl,
-  shadowUrl,
-  iconSize: [15, 25], // 크기를 작게 조정
-  iconAnchor: [7.5, 25], // 중심을 아이콘 크기에 맞게 조정
+  // shadowUrl,
+  iconSize: [15, 15],
+  iconAnchor: [7.5, 25],
   popupAnchor: [1, -25],
-  shadowSize: [25, 25]
+  // shadowSize: [25, 25]
 });
 
 L.Marker.prototype.options.icon = RedIcon;
@@ -64,8 +63,7 @@ const Map = ({ selectedMarker, setSelectedMarker, setMarkers, handleRowClick }) 
   const [randomMarkers, setRandomMarkers] = useState([]);
 
   useEffect(() => {
-    // Fetch data from JSON file in the public directory
-    fetch('/data/data3.json') // 변경된 JSON 파일
+    fetch('/data/data3.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
@@ -73,45 +71,68 @@ const Map = ({ selectedMarker, setSelectedMarker, setMarkers, handleRowClick }) 
         return response.json();
       })
       .then(data => {
-        // 'X 좌표'와 'Y 좌표' 데이터를 포함한 markers 배열 설정
         const markersData = data.map((item, index) => ({
           position: [item['X 좌표'], item['Y 좌표']],
           name: item['구분'],
           details: item,
           index: index
         }));
-        setMarkers(markersData); // 부모 컴포넌트의 상태 업데이트
+        setMarkers(markersData);
         setLocalMarkers(markersData);
 
-        // Generate random points around each marker
-        const allRandomPoints = markersData.flatMap(marker => 
-          generateRandomPoints(marker.position, 15, 30, marker.name)
-        );
+        // // Generate random points around each marker
+        // const allRandomPoints = markersData.flatMap(marker =>
+        //   generateRandomPoints(marker.position, 15, 30, marker.name)
+        // );
 
-        // 추가로 지정된 좌표에서 50km 반경으로 랜덤한 50개의 점 생성
-        const additionalPoints = [
-          { position: [35.4211779119527, 127.1852936788470], name: "전주" },
-          { position: [36.24105476443080, 127.62579377150200], name: "대전" },
-          { position: [37.48809624253570, 128.49860723175000], name: "강원" }
-        ].flatMap(point => 
-          generateRandomPoints(point.position, 50, 50, point.name)
-        );
+        // // 추가로 지정된 좌표에서 50km 반경으로 랜덤한 50개의 점 생성
+        // const additionalPoints = data.map(item =>
+        //   generateRandomPoints(
+        //     [item['Y'], item['X']],
+        //     item['Individual'],
+        //     item['Radius (km)'],
+        //     item['주소']
+        //   )
+        // ).flat();
 
-        setRandomMarkers([...allRandomPoints, ...additionalPoints]);
+        // setRandomMarkers([...allRandomPoints, ...additionalPoints]);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, [setMarkers]);
 
+  useEffect(() => {
+    fetch('/data/data4.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const randomPoints = data.flatMap(item =>
+          generateRandomPoints(
+            [item['X'], item['Y']],
+            item['Individual'],
+            item['Radius (km)'],
+            item['주소']
+          )
+        );
+
+        setRandomMarkers(randomPoints);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
   return (
     <div className="map-wrapper">
       <MapContainer
-        center={[35.9078, 127.7669]} // 대한민국 중심 좌표
-        zoom={7} // 대한민국 전역이 보이는 줌 레벨
+        center={[35.9078, 127.7669]}
+        zoom={7}
         className="map-container"
         zoomAnimation={true}
         zoomAnimationThreshold={4}
         scrollWheelZoom={true}
-        wheelPxPerZoomLevel={60} // 휠 스크롤 감도 조정
+        wheelPxPerZoomLevel={60}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -123,8 +144,8 @@ const Map = ({ selectedMarker, setSelectedMarker, setMarkers, handleRowClick }) 
             key={`random-${index}`}
             position={marker.position}
             name={marker.name}
-            icon={BlueIcon} // 랜덤 마커에 BlueIcon 사용
-            zIndexOffset={-1000} // 랜덤 마커의 zIndexOffset을 낮게 설정
+            icon={BlueIcon}
+            zIndexOffset={-1000}
           />
         ))}
         {markers.map((marker, index) => (
