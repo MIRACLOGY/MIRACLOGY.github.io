@@ -5,8 +5,8 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import './Map.css';
 
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import randomIconRetinaUrl from '../../assets/marker-icon-2x-bluedot.png';
-import randomIconUrl from '../../assets/marker-icon-bluedot.png';
+import randomIconRetinaUrl from '../../assets/blue-marker-icon-2x.png';
+import randomIconUrl from '../../assets/blue-marker-icon.png';
 import iconRetinaUrl from '../../assets/red-marker-icon-2x.png';
 import iconUrl from '../../assets/red-marker-icon.png';
 
@@ -24,7 +24,7 @@ const BlueIcon = L.icon({
   iconRetinaUrl: randomIconRetinaUrl,
   iconUrl: randomIconUrl,
   // shadowUrl,
-  iconSize: [15, 15],
+  iconSize: [15, 25],
   iconAnchor: [7.5, 25],
   popupAnchor: [1, -25],
   // shadowSize: [25, 25]
