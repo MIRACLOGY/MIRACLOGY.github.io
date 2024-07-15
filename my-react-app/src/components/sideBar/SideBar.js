@@ -1,6 +1,8 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import './SideBar.css';
 
+import uparrow from '../../assets/up.png';
+
 const SideBar = forwardRef(({ markers, setSelectedMarker }, ref) => {
   const [expandedItem, setExpandedItem] = useState(null);
   const [expandedImage, setExpandedImage] = useState(null);
@@ -25,6 +27,11 @@ const SideBar = forwardRef(({ markers, setSelectedMarker }, ref) => {
     setSelectedMarker(item.marker);
   };
 
+  const handleCollapseClick = () => {
+    setExpandedItem(null);
+    setExpandedImage(null);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -37,9 +44,14 @@ const SideBar = forwardRef(({ markers, setSelectedMarker }, ref) => {
             )}
             <div className="expanded-info">
               <h2>{expandedItem['구분']}</h2>
-              <p><span>주소:</span> {expandedItem['주소 / 거점위치']}</p>
-              <p><span>기능:</span> {expandedItem['기능']}</p>
-              <p><span>직영 / 위탁:</span> {expandedItem['직영/위탁']}</p>
+              <p className="text"><span>주소:</span> {expandedItem['주소 / 거점위치']}</p>
+              <p className="text"><span>기능:</span> {expandedItem['기능']}</p>
+              <div className="collapse-container">
+                <p className="text"><span>직영 / 위탁:</span> {expandedItem['직영/위탁']}</p>
+                <button className="collapse-button" onClick={handleCollapseClick}>
+                  <img src={uparrow} alt="Collapse" className="collapse-icon" />
+                </button>
+              </div>
             </div>
           </div>
         )}

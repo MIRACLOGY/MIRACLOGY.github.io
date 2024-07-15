@@ -10,6 +10,17 @@
   }
 }
 
+@keyframes slideUp {
+  from {
+    max-height: 1000px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
 .sidebar {
   width: 100%;
   background-color: #f3f3f3;
@@ -31,9 +42,15 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 1.25rem;
-  animation: slideDown 1s ease-out; /* 애니메이션 지속 시간을 1초로 변경 */
-  max-height: 1000px; /* 초기 max-height 설정 */
+  animation: slideDown 0.5s ease-out;
+  max-height: 1000px;
   overflow: hidden;
+}
+
+.collapsing {
+  animation: slideUp 0.5s ease-out;
+  max-height: 0 !important;
+  opacity: 0 !important;
 }
 
 .image-container {
@@ -57,32 +74,45 @@
 
 .expanded-image {
   width: 100%;
-  max-width: 45rem; /* 720px */
+  max-width: 45rem;
   height: auto;
-  max-height: 25rem; /* 400px */
+  max-height: 25rem;
   border-radius: 0.625rem;
   margin: 0 0.625rem;
   object-fit: cover;
-  transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out; /* 이미지 비율 조정 애니메이션 */
+  transition: max-width 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
 .expanded-info {
   text-align: left;
   width: 100%;
-  font-size: 1.5rem; /* 24pt */
+  font-size: 1.5rem;
+  position: relative;
 }
 
 .expanded-info h2 {
-  font-size: 1.5rem; /* 24pt */
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.625rem;
 }
 
 .expanded-info p {
   margin-bottom: 0.3125rem;
+  display: flex;
 }
 
-.expanded-info p span {
+.expanded-info .text {
+  flex: 1;
+  text-align: left;
+}
+
+.expanded-info .collapse-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expanded-info .text span {
   font-weight: bold;
 }
 
@@ -115,7 +145,7 @@
 .info-table td {
   padding: 0.5rem;
   text-align: left;
-  font-size: 1rem; /* 16pt */
+  font-size: 1rem;
 }
 
 .info-table th {
@@ -132,4 +162,20 @@
 
 .info-table tr:hover {
   background-color: #f1f1f1;
+}
+
+.collapse-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.collapse-button:hover {
+  color: #002b50;
+}
+
+.collapse-icon {
+  width: 20px;
+  height: 20px;
 }
